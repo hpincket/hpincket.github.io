@@ -1,0 +1,67 @@
+<html>
+<head>
+<title>Don't Bread on Me!</title>
+</head>
+<body style="background-color:#F4DC00">
+<canvas id="canvasRegn" width="1000" height="650" style="padding-left:0; padding-right:0; display:block; margin-left:auto; margin-right:auto"></canvas>
+<script>
+var ctx;
+var imgBg;
+var imgDrops;
+var x = 0;
+var y = 0;
+var noOfDrops = 30;
+var fallingDrops = [];
+
+
+    function drawBackground(){  
+        ctx.drawImage(imgBg, 0, 0, 1000, 650); //Background
+    }
+
+    function draw() {
+        drawBackground();
+        
+        for (var i=0; i< noOfDrops; i++)
+        {
+        ctx.drawImage (fallingDrops[i].image, fallingDrops[i].x, fallingDrops[i].y); //The rain drop
+
+        fallingDrops[i].y += fallingDrops[i].speed; //Set the falling speed
+        if (fallingDrops[i].y > 550) {  //Repeat the raindrop when it falls out of view
+        fallingDrops[i].y = -25 //Account for the image size
+        fallingDrops[i].x = Math.random() * 900;    //Make it appear randomly along the width    
+        }
+        
+        }
+    }
+
+    function setup() {
+        var canvas = document.getElementById('canvasRegn');
+
+        if (canvas.getContext) {
+                ctx = canvas.getContext('2d');
+            
+                    imgBg = new Image();
+            imgBg.src = "dont-tread-on-me.jpg";
+        setInterval(draw, 36);
+        for (var i = 0; i < noOfDrops; i++) {
+            var fallingDr = new Object();
+            fallingDr["image"] =  new Image();
+        fallingDr.image.src = 'http://icons.iconarchive.com/icons/fasticon/coffee-break/128/bread-icon.png';
+                
+            fallingDr["x"] = Math.random() * 850;
+            fallingDr["y"] = Math.random() * 5;
+            fallingDr["speed"] = 3 + Math.random() * 5;
+            fallingDrops.push(fallingDr);
+            }
+
+        }
+    }
+
+
+
+
+setup();
+
+</script>
+</body>
+</html>
